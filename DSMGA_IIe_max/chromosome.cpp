@@ -44,137 +44,137 @@ using namespace std;
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################
 // BB 相同 ##########################################################################################################################################################################################
-// double Chromosome::oneMax(double fHigh4, double fLow4, double fHigh3, double fLow3) const {
-//     int DEBUG = 0;
+double Chromosome::oneMax(double fHigh4, double fLow4, double fHigh3, double fLow3) const {
+    int DEBUG = 0;
 
-//     if (DEBUG)
-//     {
-//         cout << "############################### DEBUG BB 相同 ###############################" << endl;
-//     }
+    if (DEBUG)
+    {
+        cout << "############################### DEBUG BB 相同 ###############################" << endl;
+    }
    
-//     // int TRAP_M4 = length / 4;
-//     int indices4_1[length]; // 初始化索引陣列
-//     for (int i = 0; i < length; ++i) {
-//         indices4_1[i] = i;
-//     }    
+    // int TRAP_M4 = length / 4;
+    int indices4_1[length]; // 初始化索引陣列
+    for (int i = 0; i < length; ++i) {
+        indices4_1[i] = i;
+    }    
 
-//     // if (DEBUG)
-//     // {
-//     //     cout << "---indices4_1----" << endl;
-//     //     for (int i = 0; i < length; ++i) {
-//     //         std::cout << indices4_1[i] << " ";
-//     //     }
-//     //     std::cout << std::endl;
-//     // }
+    // if (DEBUG)
+    // {
+    //     cout << "---indices4_1----" << endl;
+    //     for (int i = 0; i < length; ++i) {
+    //         std::cout << indices4_1[i] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
-//     int* chrom4_1 = new int[length];
-//     for (int i = 0; i < length; i++)
-//         chrom4_1[indices4_1[i]] = getVal(i);
+    int* chrom4_1 = new int[length];
+    for (int i = 0; i < length; i++)
+        chrom4_1[indices4_1[i]] = getVal(i);
 
 
 
-//     double result4_1 = 0;
-//     int u4_1;
-//     for (int i = 0; i < length; i+=4)
-//     {   
-//         u4_1 = 0;
-//         for (int j = i; j < i+4; j++)
-//         {
-//             u4_1 += chrom4_1[j];
-//         }
+    double result4_1 = 0;
+    int u4_1;
+    for (int i = 0; i < length; i+=4)
+    {   
+        u4_1 = 0;
+        for (int j = i; j < i+4; j++)
+        {
+            u4_1 += chrom4_1[j];
+        }
 
-//         if (u4_1 == 4)
-//             result4_1 += 4;
-//         else if (u4_1 == 0)
-//             result4_1 += 3;
-//         else if (u4_1 == 1)
-//             result4_1 += 2;
-//         else if (u4_1 == 2)
-//             result4_1 += 1;
-//         else if (u4_1 == 3)
-//             result4_1 += 0;
-//     }
+        if (u4_1 == 4)
+            result4_1 += 4;
+        else if (u4_1 == 0)
+            result4_1 += 3;
+        else if (u4_1 == 1)
+            result4_1 += 2;
+        else if (u4_1 == 2)
+            result4_1 += 1;
+        else if (u4_1 == 3)
+            result4_1 += 0;
+    }
 
-//     if (DEBUG)
-//     {
-//         cout << "---chrom4_1----" << endl;
-//         for (int i = 0; i < length; ++i) {
-//             std::cout << chrom4_1[i] << " ";
-//         }
-//         cout << " fitness " << result4_1 << std::endl;
-//     }  
+    if (DEBUG)
+    {
+        cout << "---chrom4_1----" << endl;
+        for (int i = 0; i < length; ++i) {
+            std::cout << chrom4_1[i] << " ";
+        }
+        cout << " fitness " << result4_1 << std::endl;
+    }  
     
 
-//     //###########################################
+    //###########################################
  
-//     // int TRAP_M4 = length / 4;
-//     int indices4_0[length]; // 初始化索引陣列
-//     for (int i = 0; i < length; ++i) {
-//         indices4_0[i] = i;
-//     }
+    // int TRAP_M4 = length / 4;
+    int indices4_0[length]; // 初始化索引陣列
+    for (int i = 0; i < length; ++i) {
+        indices4_0[i] = i;
+    }
 
 
-//     // std::default_random_engine rng4(42); // 使用固定種子
-//     // std::shuffle(indices4, indices4 + length, rng4); // 使用 std::shuffle
+    // std::default_random_engine rng4(42); // 使用固定種子
+    // std::shuffle(indices4, indices4 + length, rng4); // 使用 std::shuffle
     
 
-//     // if (DEBUG)
-//     // {
-//     //     cout << "---indices4_0----" << endl;
-//     //     for (int i = 0; i < length; ++i) {
-//     //         std::cout << indices4_0[i] << " ";
-//     //     }
-//     //     std::cout << std::endl;
-//     // }
+    // if (DEBUG)
+    // {
+    //     cout << "---indices4_0----" << endl;
+    //     for (int i = 0; i < length; ++i) {
+    //         std::cout << indices4_0[i] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
 
 
-//     int* chrom4_0 = new int[length];
-//     for (int i = 0; i < length; i++)
-//         chrom4_0[indices4_0[i]] = getVal(i);
+    int* chrom4_0 = new int[length];
+    for (int i = 0; i < length; i++)
+        chrom4_0[indices4_0[i]] = getVal(i);
     
 
 
-//     double result4_0 = 0;
-//     int u4_0;
-//     for (int i = 0; i < length; i+=4)
-//     {   
-//         u4_0 = 0;
-//         for (int j = i; j < i+4; j++)
-//         {
-//             u4_0 += chrom4_0[j];
-//         }
+    double result4_0 = 0;
+    int u4_0;
+    for (int i = 0; i < length; i+=4)
+    {   
+        u4_0 = 0;
+        for (int j = i; j < i+4; j++)
+        {
+            u4_0 += chrom4_0[j];
+        }
 
-//         if (u4_0 == 4)
-//             result4_0 += 3;
-//         else if (u4_0 == 0)
-//             result4_0 += 4;
-//         else if (u4_0 == 1)
-//             result4_0 += 0;
-//         else if (u4_0 == 2)
-//             result4_0 += 1;
-//         else if (u4_0 == 3)
-//             result4_0 += 2;
-//     }
+        if (u4_0 == 4)
+            result4_0 += 3;
+        else if (u4_0 == 0)
+            result4_0 += 4;
+        else if (u4_0 == 1)
+            result4_0 += 0;
+        else if (u4_0 == 2)
+            result4_0 += 1;
+        else if (u4_0 == 3)
+            result4_0 += 2;
+    }
     
-//     if (DEBUG)
-//     {
-//         cout << "---chrom4_0----" << endl;
-//         for (int i = 0; i < length; ++i) {
-//             std::cout << chrom4_0[i] << " ";
-//         }
+    if (DEBUG)
+    {
+        cout << "---chrom4_0----" << endl;
+        for (int i = 0; i < length; ++i) {
+            std::cout << chrom4_0[i] << " ";
+        }
        
 
-//         cout << " fitness " << result4_0 << std::endl;
-//     }
+        cout << " fitness " << result4_0 << std::endl;
+    }
 
-//     delete []chrom4_1;
-//     delete []chrom4_0;
-//     if (DEBUG)
-//         std::cout << "Fitness = " << std::max(result4_1, result4_0) << std::endl;
-//     return std::max(result4_1, result4_0);
+    delete []chrom4_1;
+    delete []chrom4_0;
+    if (DEBUG)
+        std::cout << "Fitness = " << std::max(result4_1, result4_0) << std::endl;
+    return std::max(result4_1, result4_0);
 
-// }
+}
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################
@@ -625,77 +625,77 @@ using namespace std;
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################
 // single_mk(4, 3) ##########################################################################################################################################################################################
-double Chromosome::oneMax(double fHigh4, double fLow4, double fHigh3, double fLow3) const {
-    int DEBUG = 0;
+// double Chromosome::oneMax(double fHigh4, double fLow4, double fHigh3, double fLow3) const {
+//     int DEBUG = 0;
 
-    if (DEBUG)
-    {
-        cout << "############################### DEBUG single_mk(4, 3) ###############################" << endl;
-    }
+//     if (DEBUG)
+//     {
+//         cout << "############################### DEBUG single_mk(4, 3) ###############################" << endl;
+//     }
    
-    // int TRAP_M4 = length / 4;
-    int indices4_1[length]; // 初始化索引陣列
-    for (int i = 0; i < length; ++i) {
-        indices4_1[i] = i;
-    }    
+//     // int TRAP_M4 = length / 4;
+//     int indices4_1[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4_1[i] = i;
+//     }    
 
-    // if (DEBUG)
-    // {
-    //     cout << "---indices4_1----" << endl;
-    //     for (int i = 0; i < length; ++i) {
-    //         std::cout << indices4_1[i] << " ";
-    //     }
-    //     std::cout << std::endl;
-    // }
+//     // if (DEBUG)
+//     // {
+//     //     cout << "---indices4_1----" << endl;
+//     //     for (int i = 0; i < length; ++i) {
+//     //         std::cout << indices4_1[i] << " ";
+//     //     }
+//     //     std::cout << std::endl;
+//     // }
 
-    int* chrom4_1 = new int[length];
-    for (int i = 0; i < length; i++)
-        chrom4_1[indices4_1[i]] = getVal(i);
+//     int* chrom4_1 = new int[length];
+//     for (int i = 0; i < length; i++)
+//         chrom4_1[indices4_1[i]] = getVal(i);
 
 
 
-    double result4_1 = 0;
-    int u4_1;
-    for (int i = 0; i < length; i+=4)
-    {   
-        u4_1 = 0;
-        for (int j = i; j < i+4; j++)
-        {
-            u4_1 += chrom4_1[j];
-        }
+//     double result4_1 = 0;
+//     int u4_1;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4_1 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4_1 += chrom4_1[j];
+//         }
 
-        if (u4_1 == 4)
-            result4_1 += 4;
-        else if (u4_1 == 0)
-            result4_1 += 3;
-        else if (u4_1 == 1)
-            result4_1 += 2;
-        else if (u4_1 == 2)
-            result4_1 += 1;
-        else if (u4_1 == 3)
-            result4_1 += 0;
-    }
+//         if (u4_1 == 4)
+//             result4_1 += 4;
+//         else if (u4_1 == 0)
+//             result4_1 += 3;
+//         else if (u4_1 == 1)
+//             result4_1 += 2;
+//         else if (u4_1 == 2)
+//             result4_1 += 1;
+//         else if (u4_1 == 3)
+//             result4_1 += 0;
+//     }
 
-    if (DEBUG)
-    {
-        cout << "---chrom4_1----" << endl;
-        for (int i = 0; i < length; ++i) {
-            std::cout << chrom4_1[i] << " ";
-        }
-        cout << " fitness " << result4_1 << std::endl;
-    }  
+//     if (DEBUG)
+//     {
+//         cout << "---chrom4_1----" << endl;
+//         for (int i = 0; i < length; ++i) {
+//             std::cout << chrom4_1[i] << " ";
+//         }
+//         cout << " fitness " << result4_1 << std::endl;
+//     }  
     
 
-    //###########################################
+//     //###########################################
  
 
    
-    delete []chrom4_1;
-    if (DEBUG)
-        std::cout << "Fitness = " << result4_1<< std::endl;
-    return result4_1;
+//     delete []chrom4_1;
+//     if (DEBUG)
+//         std::cout << "Fitness = " << result4_1<< std::endl;
+//     return result4_1;
 
-}
+// }
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################
 // ##########################################################################################################################################################################################

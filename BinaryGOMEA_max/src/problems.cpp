@@ -5,7 +5,7 @@ void createProblemInstance(int problemIndex, int numberOfVariables, Config *conf
 	switch (problemIndex)
 	{
 		case 0: *problemInstance = new oneMax(); break;
-		case 1: *problemInstance = new concatenatedDeceptiveTrap(4, 3, false); break;
+		case 1: *problemInstance = new concatenatedDeceptiveTrap(1, 0.8, false); break;
 		case 2: *problemInstance = new ADF(instancePath); break;
 		case 3: *problemInstance = new maxCut(instancePath); break;		
 		case 4: *problemInstance = new hierarchialIfAndOnlyIf(); break;
@@ -49,13 +49,13 @@ double Problem::calculateFitnessPartialEvaluations(Individual *solution, Individ
 	return 0.0;
 }
 
+
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// BB 相同 ##########################################################################################################################################################################################
 double oneMax::calculateFitness(Individual *solution)
 {
-	// double res = 0.0;
-	// for (size_t i = 0; i < solution->genotype.size(); ++i)
-	// 	res += solution->genotype[i];
-
-	// solution->fitness = res;
 
 	int length = solution->genotype.size();
 	double res = 0.0;
@@ -63,10 +63,6 @@ double oneMax::calculateFitness(Individual *solution)
     for (int i = 0; i < length; ++i) {
         indices4[i] = i;
     }
-
-    std::default_random_engine rng4(42); // 使用固定種子
-    std::shuffle(indices4, indices4 + length, rng4); // 使用 std::shuffle
-    
 
     int* chrom4 = new int[length];
 	int temp4 = 0;
@@ -86,28 +82,16 @@ double oneMax::calculateFitness(Individual *solution)
             u4 += chrom4[j];
         }
 
-        // if (u4 == 4)
-        //     result4 += 4;
-        // else if (u4 == 0)
-        //     result4 += 3;
-        // else if (u4 == 1)
-        //     result4 += 2;
-        // else if (u4 == 2)
-        //     result4 += 1;
-        // else if (u4 == 3)
-        //     result4 += 0;
-
         if (u4 == 4)
             result4 += 4;
         else if (u4 == 0)
-            result4 += 3.6;
+            result4 += 3;
         else if (u4 == 1)
-            result4 += (3.2/3)*2;
+            result4 += 2;
         else if (u4 == 2)
-            result4 += (3.2/3);
+            result4 += 1;
         else if (u4 == 3)
             result4 += 0;
-
     }
     
 
@@ -118,10 +102,6 @@ double oneMax::calculateFitness(Individual *solution)
     }
 
 
-    std::default_random_engine rng3(76); // 使用固定種子
-    std::shuffle(indices3, indices3 + length, rng3); // 使用 std::shuffle
-    
- 
     int* chrom3 = new int[length];
 	int temp3 = 0;
     for (int i = 0; i < length; i++)
@@ -132,35 +112,28 @@ double oneMax::calculateFitness(Individual *solution)
 
     double result3 = 0;
     int u3;
-    for (int i = 0; i < length; i+=3)
+    for (int i = 0; i < length; i+=4)
     {   
         u3 = 0;
-        for (int j = i; j < i+3; j++)
+        for (int j = i; j < i+4; j++)
         {
             u3 += chrom3[j];
             
         }
 
     //     // change to zero max 移除就是 onemax
-        u3 = 3 - u3;
+        u3 = 4 - u3;
 
-        // if (u3 == 3)
-        //     result3 += 3;
-        // else if (u3 == 0)
-        //     result3 += 2;
-        // else if (u3 == 1)
-        //     result3 += 1;
-        // else if (u3 == 2)
-        //     result3 += 0;    
-
-	    if (u3 == 3)
-            result3 += 3;
+        if (u3 == 4)
+            result3 += 4;
         else if (u3 == 0)
-            result3 += 2.4;
+            result3 += 3;
         else if (u3 == 1)
-            result3 += 2.4/2;
+            result3 += 2;
         else if (u3 == 2)
-            result3 += 0;    
+            result3 += 1;
+		else if (u3 == 3)
+			result3 += 0;
 
     }
 
@@ -173,6 +146,581 @@ double oneMax::calculateFitness(Individual *solution)
 
 	return res;
 }
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// BB 不同 step 1 ##########################################################################################################################################################################################
+// double oneMax::calculateFitness(Individual *solution)
+// {
+
+// 	int length = solution->genotype.size();
+// 	double res = 0.0;
+//     int indices4[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4[i] = i;
+//     }
+
+//     int* chrom4 = new int[length];
+// 	int temp4 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp4 = solution->genotype[i];
+//         chrom4[indices4[i]] = temp4;
+// 	}
+
+//     double result4 = 0;
+//     int u4;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4 += chrom4[j];
+//         }
+
+//         if (u4 == 4)
+//             result4 += 4;
+//         else if (u4 == 0)
+//             result4 += 3;
+//         else if (u4 == 1)
+//             result4 += 2;
+//         else if (u4 == 2)
+//             result4 += 1;
+//         else if (u4 == 3)
+//             result4 += 0;
+//     }
+    
+
+//     // //###########################################
+//     int indices3[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices3[i] = i;
+//     }
+
+//     int* chrom3 = new int[length];
+// 	int temp3 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		int step = 1;
+// 		int steped_index = (i+step)%length;
+// 		temp3 = solution->genotype[steped_index];
+//         chrom3[indices3[i]] = temp3;
+// 	}
+
+//     double result3 = 0;
+//     int u3;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u3 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u3 += chrom3[j];
+            
+//         }
+
+//     //     // change to zero max 移除就是 onemax
+//         // u3 = 4 - u3;
+
+//         // if (u3 == 4)
+//         //     result3 += 4;
+//         // else if (u3 == 0)
+//         //     result3 += 3;
+//         // else if (u3 == 1)
+//         //     result3 += 2;
+//         // else if (u3 == 2)
+//         //     result3 += 1;
+// 		// else if (u3 == 3)
+// 		// 	result3 += 0;
+
+//         if (u3 == 4)
+//             result3 += 3;
+//         else if (u3 == 0)
+//             result3 += 4;
+//         else if (u3 == 1)
+//             result3 += 0;
+//         else if (u3 == 2)
+//             result3 += 1;
+//         else if (u3 == 3)
+//             result3 += 2;
+
+//     }
+
+//     delete []chrom4;
+//     delete []chrom3;
+	
+// 	res = std::max(result4, result3);
+
+// 	solution->fitness = res;
+
+// 	return res;
+// }
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+
+// // ##########################################################################################################################################################################################
+// // ##########################################################################################################################################################################################
+// // ##########################################################################################################################################################################################
+// // BB 不同 step 2 ##########################################################################################################################################################################################
+// double oneMax::calculateFitness(Individual *solution)
+// {
+
+// 	int length = solution->genotype.size();
+// 	double res = 0.0;
+//     int indices4[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4[i] = i;
+//     }
+
+//     int* chrom4 = new int[length];
+// 	int temp4 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp4 = solution->genotype[i];
+//         chrom4[indices4[i]] = temp4;
+// 	}
+
+//     double result4 = 0;
+//     int u4;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4 += chrom4[j];
+//         }
+
+//         if (u4 == 4)
+//             result4 += 4;
+//         else if (u4 == 0)
+//             result4 += 3;
+//         else if (u4 == 1)
+//             result4 += 2;
+//         else if (u4 == 2)
+//             result4 += 1;
+//         else if (u4 == 3)
+//             result4 += 0;
+//     }
+    
+
+//     // //###########################################
+//     int indices3[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices3[i] = i;
+//     }
+
+//     int* chrom3 = new int[length];
+// 	int temp3 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		int step = 2;
+// 		int steped_index = (i+step)%length;
+// 		temp3 = solution->genotype[steped_index];
+//         chrom3[indices3[i]] = temp3;
+// 	}
+
+//     double result3 = 0;
+//     int u3;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u3 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u3 += chrom3[j];
+            
+//         }
+
+//     //     // change to zero max 移除就是 onemax
+//         // u3 = 4 - u3;
+
+//         // if (u3 == 4)
+//         //     result3 += 4;
+//         // else if (u3 == 0)
+//         //     result3 += 3;
+//         // else if (u3 == 1)
+//         //     result3 += 2;
+//         // else if (u3 == 2)
+//         //     result3 += 1;
+// 		// else if (u3 == 3)
+// 		// 	result3 += 0;
+
+//         if (u3 == 4)
+//             result3 += 3;
+//         else if (u3 == 0)
+//             result3 += 4;
+//         else if (u3 == 1)
+//             result3 += 0;
+//         else if (u3 == 2)
+//             result3 += 1;
+//         else if (u3 == 3)
+//             result3 += 2;
+
+//     }
+
+//     delete []chrom4;
+//     delete []chrom3;
+	
+// 	res = std::max(result4, result3);
+
+// 	solution->fitness = res;
+
+// 	return res;
+// }
+// // ##########################################################################################################################################################################################
+// // ##########################################################################################################################################################################################
+// // ##########################################################################################################################################################################################
+
+
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// BB 不同 step 3 ##########################################################################################################################################################################################
+// double oneMax::calculateFitness(Individual *solution)
+// {
+
+// 	int length = solution->genotype.size();
+// 	double res = 0.0;
+//     int indices4[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4[i] = i;
+//     }
+
+//     int* chrom4 = new int[length];
+// 	int temp4 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp4 = solution->genotype[i];
+//         chrom4[indices4[i]] = temp4;
+// 	}
+
+//     double result4 = 0;
+//     int u4;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4 += chrom4[j];
+//         }
+
+//         if (u4 == 4)
+//             result4 += 4;
+//         else if (u4 == 0)
+//             result4 += 3;
+//         else if (u4 == 1)
+//             result4 += 2;
+//         else if (u4 == 2)
+//             result4 += 1;
+//         else if (u4 == 3)
+//             result4 += 0;
+//     }
+    
+
+//     // //###########################################
+//     int indices3[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices3[i] = i;
+//     }
+
+//     int* chrom3 = new int[length];
+// 	int temp3 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		int step = 3;
+// 		int steped_index = (i+step)%length;
+// 		temp3 = solution->genotype[steped_index];
+//         chrom3[indices3[i]] = temp3;
+// 	}
+
+//     double result3 = 0;
+//     int u3;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u3 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u3 += chrom3[j];
+            
+//         }
+
+//     //     // change to zero max 移除就是 onemax
+//         // u3 = 4 - u3;
+
+//         // if (u3 == 4)
+//         //     result3 += 4;
+//         // else if (u3 == 0)
+//         //     result3 += 3;
+//         // else if (u3 == 1)
+//         //     result3 += 2;
+//         // else if (u3 == 2)
+//         //     result3 += 1;
+// 		// else if (u3 == 3)
+// 		// 	result3 += 0;
+
+//         if (u3 == 4)
+//             result3 += 3;
+//         else if (u3 == 0)
+//             result3 += 4;
+//         else if (u3 == 1)
+//             result3 += 0;
+//         else if (u3 == 2)
+//             result3 += 1;
+//         else if (u3 == 3)
+//             result3 += 2;
+
+//     }
+
+//     delete []chrom4;
+//     delete []chrom3;
+	
+// 	res = std::max(result4, result3);
+
+// 	solution->fitness = res;
+
+// 	return res;
+// }
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+
+
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// single mk ##########################################################################################################################################################################################
+// double oneMax::calculateFitness(Individual *solution)
+// {
+
+// 	int length = solution->genotype.size();
+// 	double res = 0.0;
+//     int indices4[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4[i] = i;
+//     }
+
+//     int* chrom4 = new int[length];
+// 	int temp4 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp4 = solution->genotype[i];
+//         chrom4[indices4[i]] = temp4;
+// 	}
+
+//     double result4 = 0;
+//     int u4;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4 += chrom4[j];
+//         }
+
+//         if (u4 == 4)
+//             result4 += 4;
+//         else if (u4 == 0)
+//             result4 += 3;
+//         else if (u4 == 1)
+//             result4 += 2;
+//         else if (u4 == 2)
+//             result4 += 1;
+//         else if (u4 == 3)
+//             result4 += 0;
+//     }
+    
+
+//     // //###########################################
+//     int indices3[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices3[i] = i;
+//     }
+
+
+//     int* chrom3 = new int[length];
+// 	int temp3 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp3 = solution->genotype[i];
+//         chrom3[indices3[i]] = temp3;
+// 	}
+
+//     double result3 = 0;
+//     int u3;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u3 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u3 += chrom3[j];
+            
+//         }
+
+//     //     // change to zero max 移除就是 onemax
+//         u3 = 4 - u3;
+
+//         if (u3 == 4)
+//             result3 += 4;
+//         else if (u3 == 0)
+//             result3 += 3;
+//         else if (u3 == 1)
+//             result3 += 2;
+//         else if (u3 == 2)
+//             result3 += 1;
+// 		else if (u3 == 3)
+// 			result3 += 0;
+
+//     }
+
+//     delete []chrom4;
+//     delete []chrom3;
+	
+// 	res = std::max(result4, result4);
+
+// 	solution->fitness = res;
+
+// 	return res;
+// }
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+// ##########################################################################################################################################################################################
+
+
+
+
+
+
+
+
+// double oneMax::calculateFitness(Individual *solution)
+// {
+// 	// double res = 0.0;
+// 	// for (size_t i = 0; i < solution->genotype.size(); ++i)
+// 	// 	res += solution->genotype[i];
+
+// 	// solution->fitness = res;
+
+// 	int length = solution->genotype.size();
+// 	double res = 0.0;
+//     int indices4[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices4[i] = i;
+//     }
+
+//     std::default_random_engine rng4(42); // 使用固定種子
+//     std::shuffle(indices4, indices4 + length, rng4); // 使用 std::shuffle
+    
+
+//     int* chrom4 = new int[length];
+// 	int temp4 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp4 = solution->genotype[i];
+//         chrom4[indices4[i]] = temp4;
+// 	}
+
+//     double result4 = 0;
+//     int u4;
+//     for (int i = 0; i < length; i+=4)
+//     {   
+//         u4 = 0;
+//         for (int j = i; j < i+4; j++)
+//         {
+//             u4 += chrom4[j];
+//         }
+
+//         // if (u4 == 4)
+//         //     result4 += 4;
+//         // else if (u4 == 0)
+//         //     result4 += 3;
+//         // else if (u4 == 1)
+//         //     result4 += 2;
+//         // else if (u4 == 2)
+//         //     result4 += 1;
+//         // else if (u4 == 3)
+//         //     result4 += 0;
+
+//         if (u4 == 4)
+//             result4 += 4;
+//         else if (u4 == 0)
+//             result4 += 3.6;
+//         else if (u4 == 1)
+//             result4 += (3.2/3)*2;
+//         else if (u4 == 2)
+//             result4 += (3.2/3);
+//         else if (u4 == 3)
+//             result4 += 0;
+
+//     }
+    
+
+//     // //###########################################
+//     int indices3[length]; // 初始化索引陣列
+//     for (int i = 0; i < length; ++i) {
+//         indices3[i] = i;
+//     }
+
+
+//     std::default_random_engine rng3(76); // 使用固定種子
+//     std::shuffle(indices3, indices3 + length, rng3); // 使用 std::shuffle
+    
+ 
+//     int* chrom3 = new int[length];
+// 	int temp3 = 0;
+//     for (int i = 0; i < length; i++)
+// 	{
+// 		temp3 = solution->genotype[i];
+//         chrom3[indices3[i]] = temp3;
+// 	}
+
+//     double result3 = 0;
+//     int u3;
+//     for (int i = 0; i < length; i+=3)
+//     {   
+//         u3 = 0;
+//         for (int j = i; j < i+3; j++)
+//         {
+//             u3 += chrom3[j];
+            
+//         }
+
+//     //     // change to zero max 移除就是 onemax
+//         u3 = 3 - u3;
+
+//         // if (u3 == 3)
+//         //     result3 += 3;
+//         // else if (u3 == 0)
+//         //     result3 += 2;
+//         // else if (u3 == 1)
+//         //     result3 += 1;
+//         // else if (u3 == 2)
+//         //     result3 += 0;    
+
+// 	    if (u3 == 3)
+//             result3 += 3;
+//         else if (u3 == 0)
+//             result3 += 2.4;
+//         else if (u3 == 1)
+//             result3 += 2.4/2;
+//         else if (u3 == 2)
+//             result3 += 0;    
+
+//     }
+
+//     delete []chrom4;
+//     delete []chrom3;
+	
+// 	res = std::max(result4, result3);
+
+// 	solution->fitness = res;
+
+// 	return res;
+// }
+
+
 
 double oneMax::calculateFitnessPartialEvaluations(Individual *solution, Individual *solutionBefore, vector<int> &touchedGenes, double fitnessBefore)
 {
